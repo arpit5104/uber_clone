@@ -158,4 +158,94 @@ POST /users/login
 ### Notes
 - The password is compared with the hashed password stored in the database
 - A new JWT token is generated upon successful login
-- The response will not include the password field 
+- The response will not include the password field
+
+---
+
+## Get User Profile
+Endpoint for retrieving the authenticated user's profile information.
+
+### Endpoint
+```http
+GET /users/profile
+```
+
+### Headers
+```
+Authorization: Bearer JWT_TOKEN_STRING
+```
+
+### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "user": {
+        "fullname": {
+            "firstname": "John",
+            "lastname": "Doe"
+        },
+        "email": "john.doe@example.com",
+        "_id": "user_id"
+    }
+}
+```
+
+### Error Response
+
+#### Authentication Error
+**Code**: 401 Unauthorized
+
+**Response Body**:
+```json
+{
+    "message": "Unauthorized"
+}
+```
+
+### Notes
+- Requires a valid JWT token in the Authorization header or cookie
+- Returns the current authenticated user's profile information
+
+---
+
+## User Logout
+Endpoint for logging out the current user and invalidating their token.
+
+### Endpoint
+```http
+GET /users/logout
+```
+
+### Headers
+```
+Authorization: Bearer JWT_TOKEN_STRING
+```
+
+### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "message": "Logged out successfully"
+}
+```
+
+### Error Response
+
+#### Authentication Error
+**Code**: 401 Unauthorized
+
+**Response Body**:
+```json
+{
+    "message": "Unauthorized"
+}
+```
+
+### Notes
+- Requires a valid JWT token in the Authorization header or cookie
+- The token will be blacklisted to prevent further use
+- Clears the authentication cookie if it exists 
