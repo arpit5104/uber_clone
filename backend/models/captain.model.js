@@ -27,6 +27,7 @@ const captainSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: [8, 'Password must be at least 8 characters long'],
+        select: false
     },
     socketId:{
         type: String,
@@ -75,7 +76,7 @@ captainSchema.methods.generateAuthToken = async function(){
 }
 
 captainSchema.methods.comparePassword = async function(password){
-    return await bcrypt.compare(password, this.password);
+    return bcrypt.compare(password, this.password);
 }
 
 captainSchema.statics.hashPassword = async function(password){
