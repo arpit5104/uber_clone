@@ -4,10 +4,11 @@
 Endpoint for registering new users in the system.
 
 ### Endpoint
-```
+```http
 POST /users/register
 ```
-<code_block_to_apply_changes_from>
+
+### Request Body
 ```json
 {
     "fullname": {
@@ -76,6 +77,4 @@ POST /users/register
 ### Notes
 - The password is automatically hashed before storage
 - A JWT token is generated and returned upon successful registration
-- The response will not include the password field
-```
-
+- The response will not include the password field 
