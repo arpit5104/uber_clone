@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { UserDataContext } from '../context/UserContext'
 
 const UserSignup = () => {
     const [firstName, setFirstName] = useState('')
@@ -9,16 +11,29 @@ const UserSignup = () => {
     const [userData, setUserData] = useState({})
 
 
-    const handleSubmit = (e) => {
+    const {user, setUser} = useContext(UserDataContext)
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        setUserData({
+        const newUser ={
             fullname:{
-                firstName, 
-                lastName, 
+                firstname: firstName, 
+                lastname: lastName, 
             },
             email, 
             password
-        })
+        }
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
+
+        if(response.status === 201){
+            const data = response.data;
+
+            setUser(data.user)
+            localStorage.setItem('token', data.token)
+            navigate('/home')
+        }
         
         setFirstName('')
         setLastName('')
@@ -46,7 +61,7 @@ const UserSignup = () => {
                 <input className='bg-[#eeeeee] px-4 rounded py-2 font-semibold w-full text-lg placeholder:text-grey mb-7' type="email" required  value={email} onChange={(e) => setEmail(e.target.value)} placeholder='example@gmail.com' />
                 <h3 className='text-2xl mb-2 font-bold'>Enter your password</h3>
                 <input className='bg-[#eeeeee] px-4 rounded py-2 font-semibold w-full text-lg placeholder:text-grey mb-7' type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder='********' />
-                <button className='bg-black font-bold text-xl text-white w-full p-2 rounded-md mt-5' type='submit'>Sign Up</button>
+                <button className='bg-black font-bold text-xl text-white w-full p-2 rounded-md mt-5' type='submit'>Create Account</button>
                 <p className='text-lg'>Already have an account? <Link to='/login' className='text-blue-600'>Login</Link></p>
             </form>
          </div>
