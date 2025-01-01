@@ -1,7 +1,7 @@
 import React from 'react'
 // 5:46
 
-const ConfirmRidePanel = ({setConfirmRidePanel, setVehicleFound}) => {
+const ConfirmRidePanel = ({setConfirmRidePanel, setVehicleFound, createRide, pickup, destination, fare, vehicleType}) => {
   return (
     <>
         <div>
@@ -21,15 +21,15 @@ const ConfirmRidePanel = ({setConfirmRidePanel, setVehicleFound}) => {
             <div className='w-full p-4 flex flex-col justify-between gap-3 '>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i class="ri-map-pin-line"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Location <span className='text-lg font-semibold text-gray-700'>Destination</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Location <span className='text-lg font-semibold text-gray-700'>{pickup}</span></div>
                 </div>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i class="ri-roadster-fill"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Uber Go <span className='text-lg font-semibold text-gray-700'>Destination</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Uber Go <span className='text-lg font-semibold text-gray-700'>{destination}</span></div>
                 </div>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i className="ri-money-rupee-circle-fill"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>198.20 INR<span className='text-lg font-semibold text-gray-700'>Cash/UPI</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>₹{fare[vehicleType]}<span className='text-lg font-semibold text-gray-700'>Cash/UPI</span></div>
                 </div>
                 
             </div>
@@ -37,6 +37,7 @@ const ConfirmRidePanel = ({setConfirmRidePanel, setVehicleFound}) => {
                 <button onClick={()=>{
                     setVehicleFound(true)
                     setConfirmRidePanel(false)
+                    createRide()
                 }} className='w-full bg-green-600 text-white p-4 text-2xl font-semibold rounded-md '>Confirm Ride</button>
             </div>
         </div>

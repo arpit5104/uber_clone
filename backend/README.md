@@ -162,6 +162,295 @@ POST /users/login
 
 ---
 
+## Ride Endpoints
+
+### Create Ride
+Endpoint for creating a new ride.
+
+#### Endpoint
+```http
+POST /rides/create
+```
+
+#### Request Body
+```json
+{
+    "pickup": "string",
+    "destination": "string",
+    "vehicleType": "string"
+}
+```
+
+#### Validation Rules
+- **Pickup**: Minimum 3 characters
+- **Destination**: Minimum 3 characters
+- **Vehicle Type**: Must be one of: 'auto', 'car', 'moto'
+
+#### Example Request
+```json
+{
+    "pickup": "123 Main St",
+    "destination": "456 Elm St",
+    "vehicleType": "car"
+}
+```
+
+#### Success Response
+**Code**: 201 Created
+
+**Response Body**:
+```json
+{
+    "ride": {
+        "_id": "ride_id",
+        "user": "user_id",
+        "pickup": "123 Main St",
+        "destination": "456 Elm St",
+        "fare": 50,
+        "status": "pending",
+        "otp": "123456"
+    }
+}
+```
+
+#### Error Responses
+
+#### Validation Error
+**Code**: 400 Bad Request
+
+**Response Body**:
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid pickup address",
+            "param": "pickup",
+            "location": "body"
+        }
+    ]
+}
+```
+
+---
+
+### Get Fare
+Endpoint for calculating the fare for a ride.
+
+#### Endpoint
+```http
+GET /rides/get-fare
+```
+
+#### Query Parameters
+- **pickup**: string (required)
+- **destination**: string (required)
+
+#### Example Request
+```
+GET /rides/get-fare?pickup=123 Main St&destination=456 Elm St
+```
+
+#### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "fare": {
+        "auto": 30,
+        "car": 50,
+        "moto": 20
+    }
+}
+```
+
+#### Error Responses
+
+#### Validation Error
+**Code**: 400 Bad Request
+
+**Response Body**:
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid pickup address",
+            "param": "pickup",
+            "location": "query"
+        }
+    ]
+}
+```
+
+---
+
+### Confirm Ride
+Endpoint for confirming a ride.
+
+#### Endpoint
+```http
+POST /rides/confirm
+```
+
+#### Request Body
+```json
+{
+    "rideId": "string"
+}
+```
+
+#### Validation Rules
+- **Ride ID**: Must be a valid MongoDB ObjectId
+
+#### Example Request
+```json
+{
+    "rideId": "60d5ec49f1b2c8b1f8e4e1a1"
+}
+```
+
+#### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "ride": {
+        "_id": "ride_id",
+        "status": "accepted",
+        "captain": "captain_id"
+    }
+}
+```
+
+#### Error Responses
+
+#### Validation Error
+**Code**: 400 Bad Request
+
+**Response Body**:
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid ride id",
+            "param": "rideId",
+            "location": "body"
+        }
+    ]
+}
+```
+
+---
+
+### Start Ride
+Endpoint for starting a ride.
+
+#### Endpoint
+```http
+GET /rides/start-ride
+```
+
+#### Query Parameters
+- **rideId**: string (required)
+- **otp**: string (required)
+
+#### Example Request
+```
+GET /rides/start-ride?rideId=60d5ec49f1b2c8b1f8e4e1a1&otp=123456
+```
+
+#### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "ride": {
+        "_id": "ride_id",
+        "status": "ongoing"
+    }
+}
+```
+
+#### Error Responses
+
+#### Validation Error
+**Code**: 400 Bad Request
+
+**Response Body**:
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid ride id",
+            "param": "rideId",
+            "location": "query"
+        }
+    ]
+}
+```
+
+---
+
+### End Ride
+Endpoint for ending a ride.
+
+#### Endpoint
+```http
+POST /rides/end-ride
+```
+
+#### Request Body
+```json
+{
+    "rideId": "string"
+}
+```
+
+#### Validation Rules
+- **Ride ID**: Must be a valid MongoDB ObjectId
+
+#### Example Request
+```json
+{
+    "rideId": "60d5ec49f1b2c8b1f8e4e1a1"
+}
+```
+
+#### Success Response
+**Code**: 200 OK
+
+**Response Body**:
+```json
+{
+    "ride": {
+        "_id": "ride_id",
+        "status": "completed"
+    }
+}
+```
+
+#### Error Responses
+
+#### Validation Error
+**Code**: 400 Bad Request
+
+**Response Body**:
+```json
+{
+    "errors": [
+        {
+            "msg": "Invalid ride id",
+            "param": "rideId",
+            "location": "body"
+        }
+    ]
+}
+```
+
+---
+
 ## Get User Profile
 Endpoint for retrieving the authenticated user's profile information.
 

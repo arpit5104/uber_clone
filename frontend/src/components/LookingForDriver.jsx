@@ -1,11 +1,11 @@
 import React from 'react'
 
-const LookingForDriver = () => {
+const LookingForDriver = ({pickup, destination, fare, vehicleType, setVehicleFound}) => {
   return (
     <>
         <div>
             <div className='flex justify-between items-center mx-4'>
-                <h3 className='text-3xl mb-3 font-bold'>Looking for a ride</h3>
+                <h3 className='text-3xl mb-3 font-bold'>Looking for a Driver</h3>
             </div>
         </div>
 
@@ -15,15 +15,15 @@ const LookingForDriver = () => {
             <div className='w-full p-4 flex flex-col justify-between gap-3 '>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i class="ri-map-pin-line"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Location <span className='text-lg font-semibold text-gray-700'>Destination</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Location <span className='text-lg font-semibold text-gray-700'>{pickup}</span></div>
                 </div>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i class="ri-roadster-fill"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Uber Go <span className='text-lg font-semibold text-gray-700'>Destination</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>Uber Go <span className='text-lg font-semibold text-gray-700'>{destination}</span></div>
                 </div>
                 <div className='flex gap-9  rounded-md border-b-2 border-black p-3' >
                     <h4 className='text-4xl' ><i className="ri-money-rupee-circle-fill"></i></h4>
-                    <div className='w-3/4 text-2xl flex flex-col font-bold'>198.20 INR<span className='text-lg font-semibold text-gray-700'>Cash/UPI</span></div>
+                    <div className='w-3/4 text-2xl flex flex-col font-bold'>₹{fare[vehicleType]}<span className='text-lg font-semibold text-gray-700'>Cash/UPI</span></div>
                 </div>
                 
             </div>

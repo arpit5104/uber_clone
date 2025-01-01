@@ -1,29 +1,27 @@
 import React from 'react'
 
-const WaitingForDriver = ({ride, setWaitingForDriver}) => {
+const RidePopUp = ({setRidePopupPanel,setConfirmRidePanel,ride,confirmRide}) => {
   return (
     <>
     <div>
-        <div className='flex justify-between items-center mx-4'>
-            <h3 className='text-3xl mb-3 font-bold'>Waiting for driver</h3>
+        <div className='flex justify-between items-center mx-2'>
+            <h3 className='text-3xl mb-3 font-bold'>New Ride</h3>
             <h3 onClick={()=>{
-            setWaitingForDriver(false)
-            }} className='text-xl mb-3 font-bold  cursor-pointer bg-gray-900  text-white rounded-full p-3 px-5'>
+            setRidePopupPanel(false)
+            }} className='text-xl mb-3 font-bold  cursor-pointer text-black rounded-full p-3 px-5'>
             <i className="ri-close-line"></i>
             </h3>
         </div>
     </div>
-    <div className='flex justify-between items-center mx-8'>
-      <div>
-            <img className='h-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwgBHqkU9bfCGAwmz34W-dsLKMFVIZb6v_0Q&s" alt="SEARCHING" />
-      </div>
-      <div className='text-right'>
-        <h3 className='text-xl font-semibold '>{ride?.captain.fullname.firstname}</h3>
-        <h4 className='text-2xl font-bold'>{ride?.captain.vehicle.plate}</h4>
-        <p className='text-lg font-semibold text-gray-500 font-serif'>KIA Seltos</p>
-        <h1 className='text-lg font-semibold'>  {ride?.otp} </h1>
-      </div>
+
+    <div className='p-4 flex justify-between items-center bg-gray-300 rounded-2xl'>
+        <div className='flex items-center gap-3 w-full'>
+            <img className='w-16 h-16 rounded-full object-cover' src="https://img.freepik.com/premium-photo/happy-man-ai-generated-portrait-user-profile_1119669-1.jpg" alt="" />
+            <h4 className='text-xl font-bold'>{ride?.user?.fullname?.firstname + " " + ride?.user?.fullname?.lastname}</h4>
+        </div>
+        <h5 className='text-2xl font-bold w-[30%]'>2.2 KM</h5>
     </div>
+
 
     <div className='flex flex-col items-center justify-between'>
 
@@ -42,10 +40,18 @@ const WaitingForDriver = ({ride, setWaitingForDriver}) => {
             </div>
             
         </div>
-        
+        <div className='w-full px-4 flex gap-3'>
+            <button onClick={()=>{
+                setConfirmRidePanel(true)
+                confirmRide()
+            }} className='w-full bg-green-600 text-white p-4 text-2xl font-semibold rounded-md '>Accept</button>
+            <button onClick={()=>{
+                setRidePopupPanel(false)
+            }} className='w-full bg-gray-200 text-black p-4 text-2xl font-semibold rounded-md '>Ignore</button>
+        </div>
     </div>
 </>
   )
 }
 
-export default WaitingForDriver
+export default RidePopUp
