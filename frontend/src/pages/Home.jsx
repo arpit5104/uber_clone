@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserDataContext } from '../context/UserContext';
 import { SocketContext } from '../context/SocketContext';
+import LiveTracking from '../components/LiveTracking';
 
 function Home() {
 
@@ -47,14 +48,13 @@ function Home() {
 
   socket.on('ride-confirmed', ride => {
 
-
       setVehicleFound(false)
       setWaitingForDriver(true)
       setRide(ride)
   })
 
   socket.on('ride-started', ride => {
-      console.log("ride")
+      
       setWaitingForDriver(false)
       navigate('/riding', { state: { ride } }) // Updated navigate to include ride data
   })
@@ -231,14 +231,14 @@ async function createRide() {
       <UberLogo/>
 
       <div className='h-screen w-screen'>
-        <img  className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/04/05/13/67/360_F_405136725_ZWTZ6Vt2zRdZSVTkfDnUeBWGe6Xvz3bP.jpg" alt="" />
+        <LiveTracking/>
       </div>
 
       <div className=' flex flex-col justify-end h-screen absolute top-0 w-full  '>
         <div className='h-[30%]  p-6 bg-white relative'>
           <h5 ref={panelCloseRef} onClick={()=>{
             setPanelOpen(false)
-            
+          
           }} className='absolute opacity-0 top-4 right-9 text-2xl font-extrabold bg-gray-900 text-white rounded-full p-3 px-5'>
             <i className="ri-arrow-down-wide-line"></i>
           </h5>

@@ -9,6 +9,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { SocketContext } from '../context/SocketContext'
 import axios from 'axios'
+import LiveTracking from '../components/LiveTracking'
 
 
 
@@ -131,7 +132,7 @@ const CaptainHome = () => {
         </div>
 
         <div className='h-3/5'>
-            <img  className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/04/05/13/67/360_F_405136725_ZWTZ6Vt2zRdZSVTkfDnUeBWGe6Xvz3bP.jpg" alt="" />
+            <LiveTracking/>
         </div>
 
         <div className='h-2/5 p-4 '>
