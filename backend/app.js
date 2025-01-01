@@ -13,7 +13,7 @@ const rideRoutes = require('./routes/ride.routes');
 connectToDB();
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://uber-clone-topaz-two.vercel.app/"],
+  origin: "*",
   credentials: true,
 }));
 
